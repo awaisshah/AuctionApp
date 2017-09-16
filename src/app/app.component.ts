@@ -1,3 +1,5 @@
+import { log } from 'util';
+import { Logger, logger } from 'codelyzer/util/logger';
 import { Component } from '@angular/core';
 
 import { Store } from '@ngrx/store';
@@ -19,12 +21,16 @@ interface AppState {
 })
 export class AppComponent {
 
+  
+  
+  
+  
   post: Observable<Post>
   text: string; /// form input val
   
   constructor(private store: Store<AppState>) {
     this.post = this.store.select('post')
-  }
+  }       
   
   editText() {
     this.store.dispatch(new PostActions.EditText(this.text) )
@@ -32,6 +38,7 @@ export class AppComponent {
   
   resetPost() {
     this.store.dispatch(new PostActions.Reset())
+    
   }
   
   upvote() {
