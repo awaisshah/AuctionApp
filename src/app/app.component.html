@@ -1,9 +1,31 @@
-<div *ngIf="post | async as p">
-    <h2>{{ p.text }}</h2>
-    <h4>Votes: {{ p.likes }}</h4>
-    <button (click)="upvote()">Upvote</button>
-    <button (click)="downvote()">Downvote</button>
-    <button (click)="resetPost()">Reset</button>
-    <input [(ngModel)]="text">
-    <button (click)="editText()" >Change Title</button>
-  </div>
+<router-outlet></router-outlet>
+
+
+
+
+
+
+<!-- 
+<input placeholder="your todo" [(ngModel)]="todo">
+
+<button class="btn btn-primary" (click)="addTodo(todo)" [disabled]="!todo" *ngIf="!editing">
+	Add todo
+</button>
+
+<button (click)="updateTodo(todo)" *ngIf="editing">
+	Update
+</button>
+<button (click)="cancelEdit()" *ngIf="editing">
+	Cancel
+</button>
+
+
+<ul>
+	<li *ngFor="let todo of todos$ | async; let i = index;">
+		<span [class.done]="todo.done">{{ todo.value }}</span>
+		<button class="btn btn-primary" (click)="editTodo(todo, i)">Edit</button>
+		<button class="btn btn-primary" (click)="toggleDone(todo, i)">Toggle Done</button>
+		<button class="btn btn-primary" (click)="deleteTodo(i)">X</button>
+		
+	</li>
+</ul> -->

@@ -1,52 +1,57 @@
-import { log } from 'util';
-import { Logger, logger } from 'codelyzer/util/logger';
-import { Component } from '@angular/core';
-
-import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Post } from './models/post.model';
-import * as PostActions from './actions/post.actions';
-
-
-interface AppState {
-  post: Post;
-}
-
+import { Store } from '@ngrx/store';
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO, TOGGLE_DONE }
+  from './todo.reducer';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styles: [
+    `.done { text-decoration: line-through; color: salmon; }`
+  ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  todos$: Observable<any>;
+  todo: string;
+  editing = false;
+  indexToEdit: number | null;
 
-  
-  
-  
-  
-  post: Observable<Post>
-  text: string; /// form input val
-  
-  constructor(private store: Store<AppState>) {
-    this.post = this.store.select('post')
-  }       
-  
-  editText() {
-    this.store.dispatch(new PostActions.EditText(this.text) )
+  constructor(private store: Store<any>) { }
+
+  ngOnInit() {
+    this.todos$ = this.store.select('todoReducer');
   }
-  
-  resetPost() {
-    this.store.dispatch(new PostActions.Reset())
-    
+
+  addTodo(value) {
+    this.store.dispatch({ type: ADD_TODO, payload: { value, done: false } });
+    this.todo = '';
   }
-  
-  upvote() {
-    this.store.dispatch(new PostActions.Upvote())
+  deleteTodo(index) {
+    this.store.dispatch({ type: DELETE_TODO, payload: { index } });
   }
- 
-  downvote() {
-    this.store.dispatch(new PostActions.Downvote())
+
+  editTodo(todo, index) {
+    this.editing = true;
+    this.todo = todo.value;
+    this.indexToEdit = index;
   }
-  
+
+  cancelEdit() {
+    this.editing = false;
+    this.todo = '';
+    this.indexToEdit = null;
+  }
+
+  updateTodo(updatedTodo) {
+    this.store.dispatch({ type: UPDATE_TODO, payload: { index: this.indexToEdit, newValue: updatedTodo } });
+    this.todo = '';
+    this.indexToEdit = null;
+    this.editing = false;
+  }
+
+  toggleDone(todo, index) {
+    this.store.dispatch({ type: TOGGLE_DONE, payload: { index, done: todo.done } });
+  }
 }

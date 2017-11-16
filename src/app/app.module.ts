@@ -1,26 +1,35 @@
-import { StoreModule } from "@ngrx/store";
-//import { simpleReducer } from "./simple.reducer";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { postReducer } from './reducers/post.reducer';
 import { AppComponent } from './app.component';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FormsModule } from '@angular/forms';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { StoreModule } from '@ngrx/store';
+import { postReducer } from './post.reducer';
+import { todoReducer } from './todo.reducer';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { HomeComponent } from "./components/home/home.component";
+import { AppRoutingModule } from './app.routes';
+import { ReactiveFormsModule } from '@angular/forms';  // <-- #1 import module
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    SignupComponent,
+    HomeComponent
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    StoreModule.forRoot(
-    { 
-      post: postReducer
+    StoreModule.forRoot({
+      todoReducer
     }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 10 // number of states to retain
-    })
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

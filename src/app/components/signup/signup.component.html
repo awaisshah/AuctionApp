@@ -1,0 +1,29 @@
+<nav class="navbar navbar-dark bg-primary">
+  <h3>Signup Page</h3>
+  <button type="button" class="btn btn-light" routerLink="/login">Login</button>
+</nav>
+
+<div class="container">
+
+
+
+  <form [formGroup]="signUpForm" novalidate>
+    <fieldset class="form-group">
+      <label for="first_name">First Name</label>
+      <input type="text" class="form-control" id="first_name" name="first_name" formControlName="name">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" formControlName="email">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" formControlName="password">
+    </fieldset>
+
+    <button type="submit" class="btn btn-default" (click)="submit()">Submit</button>
+  </form>
+
+</div>
