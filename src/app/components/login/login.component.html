@@ -8,7 +8,7 @@
 
 
   <form [formGroup]="loginForm" novalidate>
-    
+
 
     <fieldset class="form-group">
       <label for="email">Email</label>
@@ -20,7 +20,75 @@
       <input type="password" class="form-control" id="password" name="password" formControlName="password">
     </fieldset>
 
-    <button type="submit" class="btn btn-default" (click)="submit()" routerLink="/home">Submit</button>
+    <button type="submit" class="btn btn-default" (click)="onLoginFormSubmition()">Submit</button>
+    <!-- routerLink="/home"  -->
   </form>
 
+</div>
+
+
+<br>
+<br>
+<br>
+
+<form [formGroup]="todoForm" novalidate>
+
+
+  <fieldset class="form-group">
+    <label for="email">id</label>
+    <input type="email" class="form-control" id="id" name="id" formControlName="id">
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="password">description</label>
+    <input type="text" class="form-control" id="description" name="description" formControlName="description">
+  </fieldset>
+
+
+  <fieldset class="form-group">
+    <label for="password">responsible</label>
+    <input type="text" class="form-control" id="responsible" name="responsible" formControlName="responsible">
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="password">priority</label>
+    <input type="text" class="form-control" id="priority" name="description" formControlName="priority">
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="password">isCompleted</label>
+    <input type="text" class="form-control" id="isCompleted" name="description" formControlName="isCompleted">
+  </fieldset>
+
+  <button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
+</form>
+
+<br><br><br>
+<h6>Todo List</h6>
+<div>
+  <!-- {{ (todos | async).length }} -->
+</div>
+<div>
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+          <th>#</th>
+          <th>Todo Description</th>
+          <th>Responsible</th>
+          <th>Priority</th>
+          <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let t of todoData.todos">
+        <td><span>{{ t.id }}</span></td>
+        <td><span>{{ t.description }}</span></td>
+        <td><span>{{ t.responsible }}</span></td>
+        <td><span>{{ t.priority }}</span></td>
+        <td><button class="btn btn-primary" (click)="removeTodo(t)">Delete</button></td>
+        <!-- <td><button class="btn btn-primary"></button></td> -->
+      </tr>
+    </tbody>
+  </table>
 </div>
