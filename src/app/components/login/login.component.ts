@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   
   todoData: any;
   constructor(private fb: FormBuilder, private ngRedux: NgRedux<AppState>) {
-    this.ngRedux.getState
+    //this.ngRedux.getState
     this.createForm();
 
   }

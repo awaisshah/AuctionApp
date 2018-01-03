@@ -2,7 +2,7 @@ import { NgRedux } from '@angular-redux/store';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppState } from '../../combineReducer';
-
+import { SIGNUP_DATA } from './../../todo.actions';
 
 @Component({
   selector: 'app-signup',
@@ -25,6 +25,16 @@ export class SignupComponent implements OnInit {
       this.todoData = data;
     });
 
+     
+    this.ngRedux.select('login').subscribe(data => {
+      console.log(data);
+    });
+  
+    
+    this.ngRedux.select('signup').subscribe(data => {
+      console.log(data);
+    });
+  
   }
 
   createForm() {
@@ -37,12 +47,9 @@ export class SignupComponent implements OnInit {
 
   submit() {
     console.log(this.signUpForm.value);
-
+    this.ngRedux.dispatch({ type: SIGNUP_DATA, signup: this.signUpForm.value })
   }
 
-  users() {
-
-   
-  }
+  users() {}
 
 }

@@ -7,6 +7,7 @@
     export const DELETE_TEXT   = '[Todo] DeleteText';
     export const RESET      = '[Todo] Reset';
     
+    
     export class EditText implements Action {
         readonly type = EDIT_TEXT;
         /// user a constructor to send a payload with the action
@@ -43,6 +44,8 @@ export const TOGGLE_TODO = 'TOGGLE_TODO';
 export const REMOVE_TODO = 'REMOVE_TODO';
 export const REMOVE_ALL_TODOS = 'REMOVE_ALL_TODO';
 export const LOGIN_DATA = 'LOGIN_DATA';
+export const SIGNUP_DATA = 'SIGNUP_DATA';
+export const SIGNUP_DATA_SUCESS = 'SIGNUP_DATA_SUCESS';
 
 
 

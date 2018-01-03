@@ -14,15 +14,20 @@ import { HomeComponent } from "./components/home/home.component";
 import { AppRoutingModule } from './app.routes';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
+
 import { NgRedux, NgReduxModule } from "@angular-redux/store";
+import { createEpicMiddleware } from 'redux-observable';
 import {IAppState, rootReducer, INITIAL_STATE} from "./store";
 import {loginRrducer, INITIAL_LOGIN_STATE, ILoginSate} from "./store";
-import {AppState,  RootReducer} from "./combineReducer";
+import {AppState, RootReducer} from "./combineReducer";
 
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+
+import {SessionEpics} from './login.epics';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,22 +38,26 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     FormsModule,
     StoreModule.forRoot({
       todoReducer
     }),
     NgReduxModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [SessionEpics],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-  constructor(private ngRedux: NgRedux<AppState>) {
-    this.ngRedux.configureStore(RootReducer, {});
+  constructor(private ngRedux: NgRedux<AppState>, private epics: SessionEpics) {
+    const middleware = [
+      createEpicMiddleware(this.epics.login)
+    ];
+
+    this.ngRedux.configureStore(RootReducer, {}, middleware);
     
   }
 
