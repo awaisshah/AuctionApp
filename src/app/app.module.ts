@@ -6,8 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { StoreModule } from '@ngrx/store';
-import { postReducer } from './post.reducer';
-import { todoReducer } from './todo.reducer';
+
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HomeComponent } from "./components/home/home.component";
@@ -25,36 +24,36 @@ import {AppState, RootReducer} from "./combineReducer";
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 
-
-import {SessionEpics} from './login.epics';
+import {CreateUserEpics} from './epics/createuser.epics';
+import { AuctionFormComponent } from './components/auction-form/auction-form.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    HomeComponent
+    HomeComponent,
+    AuctionFormComponent
 
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     AngularFireAuthModule,
     FormsModule,
-    StoreModule.forRoot({
-      todoReducer
-    }),
     NgReduxModule,
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [SessionEpics],
+  providers: [CreateUserEpics],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-  constructor(private ngRedux: NgRedux<AppState>, private epics: SessionEpics) {
+  constructor(private ngRedux: NgRedux<AppState>, private epics: CreateUserEpics) {
     const middleware = [
-      createEpicMiddleware(this.epics.login)
+      createEpicMiddleware(this.epics.createNewUser)
     ];
 
     this.ngRedux.configureStore(RootReducer, {}, middleware);

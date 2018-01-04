@@ -20,11 +20,7 @@ export class SignupComponent implements OnInit {
 
 
   ngOnInit() {
-    this.ngRedux.select('todo').subscribe(data => {
-      console.log(data);
-      this.todoData = data;
-    });
-
+    
      
     this.ngRedux.select('login').subscribe(data => {
       console.log(data);

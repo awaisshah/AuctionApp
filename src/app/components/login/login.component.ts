@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgRedux, select } from "@angular-redux/store";
 import { IAppState } from './../../store';
 import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA } from './../../todo.actions';
-import { ITodo } from "../../todo";
+//import { ITodo } from "../../todo";
 
 
 @Component({
@@ -33,12 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ngRedux.select('todo').subscribe(data => {
+    this.ngRedux.select('signup').subscribe(data => {
       console.log(data);
-      this.todoData = data;
     });
-
-
     
     this.ngRedux.select('login').subscribe(data => {
       console.log(data);
@@ -51,37 +48,18 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    this.todoForm = this.fb.group({
-      id: [0, Validators.required],
-      description: ['', Validators.required],
-      responsible: ['', Validators.required],
-      priority: ['low', Validators.required],
-      isCompleted: [false, Validators.required]
-
-    });
+    
   }
 
   submit() {
     console.log(this.loginForm.value);
-  }
-
-
-  onLoginFormSubmition() {
     this.ngRedux.dispatch({ type: LOGIN_DATA, login: this.loginForm.value })
   }
 
-  onSubmit() {
-    this.ngRedux.dispatch({ type: ADD_TODO, todo: this.todoForm.value })
-  }
 
-  toggleTodo(todo) {
-    this.ngRedux.dispatch({ type: TOGGLE_TODO, id: todo.id })
-  }
-
-  removeTodo(todo) {
-    console.log(todo)
-    this.ngRedux.dispatch({ type: REMOVE_TODO, id: todo.id })
-  }
+  // onSubmit() {
+  //   this.ngRedux.dispatch({ type: ADD_TODO, todo: this.todoForm.value })
+  // }
 
 
 }

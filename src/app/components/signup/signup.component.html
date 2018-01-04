@@ -27,28 +27,3 @@
   </form>
 
 </div>
-
-<div>
-  <table class="table">
-    <thead class="thead-inverse">
-      <tr>
-          <th>#</th>
-          <th>Todo Description</th>
-          <th>Responsible</th>
-          <th>Priority</th>
-          <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let t of todoData.todos">
-        <td><span>{{ t.id }}</span></td>
-        <td><span>{{ t.description }}</span></td>
-        <td><span>{{ t.responsible }}</span></td>
-        <td><span>{{ t.priority }}</span></td>
-        <td><button class="btn btn-primary">Delete</button></td>
-        <!-- <td><button class="btn btn-primary"></button></td> -->
-      </tr>
-    </tbody>
-  </table>
-</div>

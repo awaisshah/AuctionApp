@@ -1,24 +1,8 @@
 
-//import { ADD_TODO } from './todo.reducer';
-//import { Action } from './counter.reducer';
-//import { IAppState } from './store';
-// import { ITodo } from './todo';
-//import { INITIAL_STATE } from '@ngrx/store';
-
-
-
-// export interface IAppState {
-// 	todos: ITodo[];
-// 	lastUpdate: Date;
-// }
-// export const INITIAL_STATE: IAppState = {
-// 	todos: [],
-// 	lastUpdate: null
-// }
 
 //--------------------@angular-redux/store
 import { ITodo } from "./todo";
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS } from './todo.actions';
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS, SIGNUP_FAIL } from './todo.actions';
 
 export interface IAppState {
     todos: ITodo[];
@@ -31,9 +15,8 @@ export interface ILoginSate {
 }
 
 export interface SignupState {
-    name: string;
     email: string;
-    password: any;
+    uid: any;
 }
 
 
@@ -50,9 +33,8 @@ export const INITIAL_LOGIN_STATE: ILoginSate = {
 
 
 export const INITIAL_SIGNUP_STATE: SignupState = {
-    name: "",
     email: "",
-    password: ""
+    uid: ""
 }
 
 export function rootReducer(state: IAppState = INITIAL_STATE, action) {
@@ -115,11 +97,45 @@ export function signupReducer(state: SignupState = INITIAL_SIGNUP_STATE, action)
     switch (action.type) {
         case SIGNUP_DATA_SUCESS:
             console.log(action.payload);
+            return Object.assign({}, state, {
+                email: action.payload.email,
+                uid: action.payload.uid
+            })
+        case SIGNUP_FAIL:
+            console.log(action.payload);
             // return Object.assign({}, state, {
-            //     name: action.signup.name,
-            //     email: action.signup.email,
-            //     password: action.signup.password
-            // });
+            //     email: action.payload.email,
+            //     uid: action.payload.uid
+            // })
+
     }
     return state;
 }
+
+
+/*
+
+export function todoReducer(state = [], action: ActionWithPayload<TodoPayload>) {
+    switch (action.type) {
+        case ADD_TODO:
+            return [action.payload, ...state];
+        case DELETE_TODO:
+            return state.filter((item, index) => index !== action.payload.index);
+        case UPDATE_TODO:
+            return state.map((item, index) => {
+                return index === action.payload.index
+                    ? Object.assign({}, item, { value: action.payload.newValue })
+                    : item;
+            });
+        case TOGGLE_DONE:
+            return state.map((item, index) => {
+                return index === action.payload.index
+                    ? Object.assign({}, item, { done: !action.payload.done })
+                    : item;
+            });
+        default:
+            return state;
+    }
+}
+
+*/

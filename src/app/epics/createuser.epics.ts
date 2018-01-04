@@ -33,7 +33,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { ActionsObservable } from 'redux-observable';
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS } from './todo.actions';
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS, SIGNUP_FAIL } from '../todo.actions';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
@@ -48,23 +48,28 @@ import * as firebase from 'firebase/app';
 
 
 @Injectable()
-export class SessionEpics {
-    constructor(public afAuth: AngularFireAuth) { }
+export class CreateUserEpics {
+    constructor(public afAuth: AngularFireAuth, public router: Router) { }
 
-    login = (action$) => {
+    createNewUser = (action$) => {
         return action$.ofType(SIGNUP_DATA)
             .mergeMap(({ signup }) => {
                 return Observable.fromPromise(<Promise<any>>this.afAuth.auth.createUserWithEmailAndPassword(signup.email, signup.password)
                 ).map(signup => {
                     console.log(signup)
+                    this.router.navigate(['/home']);
                     return {
                         type: SIGNUP_DATA_SUCESS,
                         payload: signup
                     }
                 })
-                //   .catch(error => Observable.of({
-                //     type: SessionActions.LOGIN_USER_ERROR
-                //   }));
+                .catch(err => {
+            
+                    return Observable.of({
+                      type: SIGNUP_FAIL,
+                      payload: signup 
+                    })
+                  })
             });
     }
 }
