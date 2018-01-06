@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import {IAppState, rootReducer, INITIAL_STATE} from "./store"
-import {loginRrducer, INITIAL_LOGIN_STATE, ILoginSate, SignupState, signupReducer} from "./store"
+import {loginReducer, INITIAL_LOGIN_STATE, ILoginSate, SignupState, signupReducer} from "./store"
 
 
 export interface AppState {
@@ -14,7 +14,7 @@ export interface AppState {
 
 export const RootReducer = combineReducers<AppState>({
     todo: rootReducer,
-    login: loginRrducer,
+    login: loginReducer,
     signup: signupReducer
 
 })

@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgRedux, NgReduxModule } from "@angular-redux/store";
 import { createEpicMiddleware } from 'redux-observable';
 import {IAppState, rootReducer, INITIAL_STATE} from "./store";
-import {loginRrducer, INITIAL_LOGIN_STATE, ILoginSate} from "./store";
+import {loginReducer, INITIAL_LOGIN_STATE, ILoginSate} from "./store";
 import {AppState, RootReducer} from "./combineReducer";
 
 import { AngularFireModule } from 'angularfire2';
@@ -53,7 +53,9 @@ import { AuctionFormComponent } from './components/auction-form/auction-form.com
 export class AppModule { 
   constructor(private ngRedux: NgRedux<AppState>, private epics: CreateUserEpics) {
     const middleware = [
-      createEpicMiddleware(this.epics.createNewUser)
+      createEpicMiddleware(this.epics.createNewUser),
+      createEpicMiddleware(this.epics.loginUser)
+      
     ];
 
     this.ngRedux.configureStore(RootReducer, {}, middleware);

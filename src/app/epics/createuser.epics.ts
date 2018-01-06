@@ -33,7 +33,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { ActionsObservable } from 'redux-observable';
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS, SIGNUP_FAIL } from '../todo.actions';
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS, SIGNUP_FAIL, LOGIN_DATA_SUCESS, LOGIN_FAIL } from '../todo.actions';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
@@ -72,4 +72,29 @@ export class CreateUserEpics {
                   })
             });
     }
+
+
+    loginUser = (action$) => {
+        return action$.ofType(LOGIN_DATA)
+            .mergeMap(({ login }) => {
+                return Observable.fromPromise(<Promise<any>>this.afAuth.auth.signInWithEmailAndPassword(login.email, login.password)
+                ).map(login => {
+                    console.log(login)
+                    this.router.navigate(['/home']);
+                    return {
+                        type: LOGIN_DATA_SUCESS,
+                        payload: login
+                    }
+                })
+                .catch(err => {
+                    alert("Wrong User");
+                    return Observable.of({
+                      type: LOGIN_FAIL,
+                      payload: {email: "", uid: ""}
+                    })
+                  })
+            });
+    }
+
+
 }

@@ -2,7 +2,7 @@
 
 //--------------------@angular-redux/store
 import { ITodo } from "./todo";
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS, SIGNUP_FAIL } from './todo.actions';
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS, SIGNUP_FAIL, LOGIN_DATA_SUCESS, LOGIN_FAIL } from './todo.actions';
 
 export interface IAppState {
     todos: ITodo[];
@@ -11,7 +11,7 @@ export interface IAppState {
 
 export interface ILoginSate {
     email: string;
-    password: any;
+    uid: any;
 }
 
 export interface SignupState {
@@ -27,7 +27,7 @@ export const INITIAL_STATE: IAppState = {
 
 export const INITIAL_LOGIN_STATE: ILoginSate = {
     email: "",
-    password: ""
+    uid: ""
 }
 
 
@@ -75,19 +75,21 @@ export function rootReducer(state: IAppState = INITIAL_STATE, action) {
 }
 
 
-export function loginRrducer(state: ILoginSate = INITIAL_LOGIN_STATE, action) {
+export function loginReducer(state: ILoginSate = INITIAL_LOGIN_STATE, action) {
     switch (action.type) {
-        case LOGIN_DATA:
-            console.log(action.login);
+        case LOGIN_DATA_SUCESS:
+            console.log(action.payload);
             return Object.assign({}, state, {
-                email: action.login.email,
-                password: action.login.password
+                email: action.payload.email,
+                uid: action.payload.uid
             });
-        //action.login.id = state.todos.length + 1;
-        // return Object.assign({}, state, {
-        //     todos: state.todos.concat(Object.assign({}, action.login)),
-        //     lastUpdate: new Date()
-        // })
+
+        case LOGIN_FAIL:
+        console.log(action.payload);
+        return Object.assign({}, state, {
+            email: action.payload.email,
+            uid: action.payload.uid
+        });
     }
     return state;
 }
@@ -103,10 +105,10 @@ export function signupReducer(state: SignupState = INITIAL_SIGNUP_STATE, action)
             })
         case SIGNUP_FAIL:
             console.log(action.payload);
-            // return Object.assign({}, state, {
-            //     email: action.payload.email,
-            //     uid: action.payload.uid
-            // })
+        // return Object.assign({}, state, {
+        //     email: action.payload.email,
+        //     uid: action.payload.uid
+        // })
 
     }
     return state;
