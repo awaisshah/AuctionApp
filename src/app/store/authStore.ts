@@ -1,8 +1,9 @@
 
 
 //--------------------@angular-redux/store
-import { ITodo } from "./todo";
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS, SIGNUP_FAIL, LOGIN_DATA_SUCESS, LOGIN_FAIL } from './todo.actions';
+import { ITodo } from "../todo";
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA, SIGNUP_DATA, SIGNUP_DATA_SUCESS, SIGNUP_FAIL, LOGIN_DATA_SUCESS, LOGIN_FAIL, CREATE_AUCTION, CREATE_AUCTION_SUCESS, CREATE_AUCTION_FAIL } from '../todo.actions';
+
 
 export interface IAppState {
     todos: ITodo[];
@@ -85,11 +86,11 @@ export function loginReducer(state: ILoginSate = INITIAL_LOGIN_STATE, action) {
             });
 
         case LOGIN_FAIL:
-        console.log(action.payload);
-        return Object.assign({}, state, {
-            email: action.payload.email,
-            uid: action.payload.uid
-        });
+            console.log(action.payload);
+            return Object.assign({}, state, {
+                email: action.payload.email,
+                uid: action.payload.uid
+            });
     }
     return state;
 }

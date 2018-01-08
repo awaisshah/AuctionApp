@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 import { NgRedux, select } from "@angular-redux/store";
-import { IAppState } from './../../store';
+import { IAppState } from '../../store/authStore';
 import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS, LOGIN_DATA } from './../../todo.actions';
 //import { ITodo } from "../../todo";
 

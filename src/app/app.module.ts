@@ -17,8 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgRedux, NgReduxModule } from "@angular-redux/store";
 import { createEpicMiddleware } from 'redux-observable';
-import {IAppState, rootReducer, INITIAL_STATE} from "./store";
-import {loginReducer, INITIAL_LOGIN_STATE, ILoginSate} from "./store";
+import {IAppState, rootReducer, INITIAL_STATE} from "./store/authStore";
+import {loginReducer, INITIAL_LOGIN_STATE, ILoginSate} from "./store/authStore";
 import {AppState, RootReducer} from "./combineReducer";
 
 import { AngularFireModule } from 'angularfire2';
