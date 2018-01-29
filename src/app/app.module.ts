@@ -17,16 +17,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgRedux, NgReduxModule } from "@angular-redux/store";
 import { createEpicMiddleware } from 'redux-observable';
-import {IAppState, rootReducer, INITIAL_STATE} from "./store/authStore";
-import {loginReducer, INITIAL_LOGIN_STATE, ILoginSate} from "./store/authStore";
-import {AppState, RootReducer} from "./combineReducer";
+import { IAppState, rootReducer, INITIAL_STATE } from "./store/authStore";
+import { loginReducer, INITIAL_LOGIN_STATE, ILoginSate } from "./store/authStore";
+import { AppState, RootReducer } from "./combineReducer";
 
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 
-import {CreateUserEpics} from './epics/createuser.epics';
+import { HttpModule } from '@angular/http'
+import { NgbModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+
+import { CreateUserEpics } from './epics/createuser.epics';
 import { AuctionFormComponent } from './components/auction-form/auction-form.component';
 @NgModule({
   declarations: [
@@ -39,27 +42,31 @@ import { AuctionFormComponent } from './components/auction-form/auction-form.com
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     AngularFireModule.initializeApp(environment.firebase),
+    NgbModule.forRoot(),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     FormsModule,
     NgReduxModule,
     AppRoutingModule,
     ReactiveFormsModule
+
   ],
   providers: [CreateUserEpics],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
   constructor(private ngRedux: NgRedux<AppState>, private epics: CreateUserEpics) {
     const middleware = [
       createEpicMiddleware(this.epics.createNewUser),
-      createEpicMiddleware(this.epics.loginUser)
-      
+      createEpicMiddleware(this.epics.loginUser),
+      createEpicMiddleware(this.epics.createNewAuction)
+
     ];
 
     this.ngRedux.configureStore(RootReducer, {}, middleware);
-    
+
   }
 
 }

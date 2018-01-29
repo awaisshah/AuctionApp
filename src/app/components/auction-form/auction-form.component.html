@@ -15,19 +15,42 @@
 
         <div class="form-group">
           <label for="recipient-name" class="col-form-label">Auction End Date</label>
-          <input type="date" class="form-control" formControlName="auctionEndDate">
+          <div style="display: flex">
+            <input class="form-control" formControlName="auctionEndDate" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
+
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <img src="../../../assets/calendar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+            </button>
+          </div>
+
+
         </div>
 
         <div class="form-group">
           <label for="recipient-name" class="col-form-label">End Time</label>
-          <input type="time" class="form-control" formControlName="endTime">
+          <ngb-timepicker [meridian]="meridian" formControlName="endTime"></ngb-timepicker>
         </div>
+
 
         <div class="form-group">
           <label for="recipient-name" class="col-form-label">First Biding</label>
           <input type="number" class="form-control" formControlName="FirstBiding">
         </div>
 
+
+        <div class="btn-group">
+          <span>Select Category</span>
+          <select name="select" id="select" required class="form-control" formControlName="selectCategory">
+            <option value="cellPhnones">Cell Phones</option>
+            <option value="computers">Computers</option>
+            <option value="tablets">Tablets</option>
+
+          </select>
+        </div>
+
+
+
+        <br>
       </form>
 
       <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="CreateAuctionForm.status=='INVALID'">Create Auction</button>

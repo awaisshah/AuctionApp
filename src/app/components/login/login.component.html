@@ -3,27 +3,56 @@
   <button type="button" class="btn btn-light" routerLink="/signup">Sign up</button>
 </nav>
 
-<div class="container">
+<div class="container" style="width: 100%; flex-wrap:nowrap">
+
+  <div class="row">
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="card-body">
+
+        <form [formGroup]="loginForm" novalidate>
+
+
+          <fieldset class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" formControlName="email">
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" formControlName="password">
+          </fieldset>
+
+          <button type="submit" class="btn btn-default" (click)="submit()" routerLink="/home">Submit</button>
+          <!--   -->
+      </form>
+
+      </div>
+
+    </div>
+
+  </div>
 
 
 
-  <form [formGroup]="loginForm" novalidate>
 
 
-    <fieldset class="form-group">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" name="email" formControlName="email">
-    </fieldset>
 
-    <fieldset class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" name="password" formControlName="password">
-    </fieldset>
+  <!-- <div class="row" style="height: 500px">
+    <div class="img-class" >
+      <img class="img-fluid" src="../../../assets/Taimoor.jpeg" alt="">
+    </div>
+    <div class="img-class">
+      <img class="img-fluid" src="../../../assets/Taimoor.jpeg" alt="">
+    </div>
+    <div class="img-class">
+      <img class="img-fluid" src="../../../assets/Taimoor.jpeg" alt="">
+    </div>
+  </div> -->
 
-    <button type="submit" class="btn btn-default" (click)="submit()" [disabled]="loginForm.status=='INVALID'">Submit</button>
-    <!-- routerLink="/home"  -->
-  </form>
+
+
 
 </div>
 
-
+<!--  [disabled]="loginForm.status=='INVALID'" -->

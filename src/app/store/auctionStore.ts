@@ -7,7 +7,8 @@ export interface createAuctionState {
     productDescription: string,
     auctionEndDate: any,
     endTime: any,
-    FirstBiding: number
+    FirstBiding: number,
+    category: string
 }
 
 
@@ -17,7 +18,8 @@ export const INITIAL_CREATE_AUCTION_STATE: createAuctionState = {
     productDescription: "",
     auctionEndDate: "",
     endTime: "",
-    FirstBiding: 0
+    FirstBiding: 0,
+    category: ""
 }
 
 export function CreateAuctionReducer(state: createAuctionState = INITIAL_CREATE_AUCTION_STATE, action) {
@@ -31,8 +33,8 @@ export function CreateAuctionReducer(state: createAuctionState = INITIAL_CREATE_
                 productDescription:  action.payload.productDescription,
                 auctionEndDate:      action.payload.auctionEndDate,
                 endTime:             action.payload.endTime,
-                FirstBiding:         action.payload.FirstBiding
-
+                FirstBiding:         action.payload.FirstBiding,
+                category:            action.payload.selectCategory
             });
 
         case CREATE_AUCTION_FAIL:
@@ -44,7 +46,8 @@ export function CreateAuctionReducer(state: createAuctionState = INITIAL_CREATE_
                 productDescription:  action.payload.productDescription,
                 auctionEndDate:      action.payload.auctionEndDate,
                 endTime:             action.payload.endTime,
-                FirstBiding:         action.payload.FirstBiding
+                FirstBiding:         action.payload.FirstBiding,
+                category:            action.payload.selectCategory
             });
     }
     return state;

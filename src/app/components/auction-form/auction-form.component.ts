@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgRedux, select } from "@angular-redux/store";
 import { AppState } from '../../combineReducer';
 import { AngularFireAuth } from 'angularfire2/auth';
-import {  CREATE_AUCTION, CREATE_AUCTION_SUCESS, CREATE_AUCTION_FAIL} from './../../todo.actions';
+import { CREATE_AUCTION, CREATE_AUCTION_SUCESS, CREATE_AUCTION_FAIL } from './../../todo.actions';
 import { logging } from 'selenium-webdriver';
 
 import * as firebase from 'firebase/app';
@@ -22,6 +22,9 @@ export class AuctionFormComponent implements OnInit {
   user: Observable<any>;
   uid: any;
   AuctionCreator: any;
+  model;
+  time = { hour: 13, minute: 30 };
+  meridian = true;
 
   constructor(private fb: FormBuilder, public afAuth: AngularFireAuth, private ngRedux: NgRedux<AppState>) {
 
@@ -48,21 +51,23 @@ export class AuctionFormComponent implements OnInit {
       productDescription: ['', Validators.required],
       auctionEndDate: ['', Validators.required],
       endTime: ['', Validators.required],
+      selectCategory: ['', Validators.required],
       FirstBiding: ['', Validators.required]
     });
   }
 
+
   submit() {
-    if(this.uid) {
+    if (this.uid) {
       this.CreateAuctionForm.patchValue({
         auctionCreatorUid: this.uid
       });
       console.log(this.CreateAuctionForm.value);
-
-      this.ngRedux.dispatch({ type: CREATE_AUCTION_SUCESS, payload: this.CreateAuctionForm.value })
-
+      this.ngRedux.dispatch({ type: CREATE_AUCTION, payload: this.CreateAuctionForm.value })
     }
 
-
   }
+
+
+
 }
