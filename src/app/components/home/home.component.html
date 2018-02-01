@@ -16,13 +16,16 @@
 
   <div class="card" style="text-align:center">
     <div class="card-body">
-      <button type="button" class="btn btn-primary">Cell Phones</button>
-      <button type="button" class="btn btn-primary">Computers</button>
-      <button type="button" class="btn btn-primary">Tablets</button>      
+      <button type="button" class="btn btn-primary" (click)="showAuctionList('cellPhnones')">Cell Phones</button>
+      <button type="button" class="btn btn-primary" (click)="showAuctionList('computers')">Computers</button>
+      <button type="button" class="btn btn-primary" (click)="showAuctionList('tablets')">Tablets</button>      
+      <button type="button" class="btn btn-rounded btn-primary">Primary</button>
     </div>
   </div>
 
-  <app-auction-form *ngIf="ShowAuction"></app-auction-form>
+  <app-auction-form *ngIf="ShowAuctionForm"></app-auction-form>
+
+  <app-auction-list *ngIf="ShowAuctionList"></app-auction-list>
 </div>
 
 

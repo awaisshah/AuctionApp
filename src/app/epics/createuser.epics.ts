@@ -1,4 +1,4 @@
-import { CREATE_AUCTION_SUCESS, CREATE_AUCTION_FAIL } from './../todo.actions';
+import { CREATE_AUCTION_SUCESS, CREATE_AUCTION_FAIL, GET_AUCTION, GET_AUCTION_SUCESS, GET_AUCTION_FAIL } from './../todo.actions';
 // import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
 // import { ActionsObservable } from 'redux-observable';
@@ -52,7 +52,8 @@ import * as firebase from 'firebase/app';
 export class CreateUserEpics {
 
     // VARIABLE DECLARATION
-    createAuctionRef: AngularFireList<any>;
+    createAuctionRef: AngularFireList<any[]>;
+    createAuctionRef2: AngularFireList<any[]>;
 
 
     constructor(public afAuth: AngularFireAuth, public router: Router, public db: AngularFireDatabase) {
@@ -60,14 +61,38 @@ export class CreateUserEpics {
         this.createAuctionRef = db.list('Auctions');
     }
 
+
+    getAuction = (action$) => {
+        return action$.ofType(GET_AUCTION)
+            .mergeMap((auction) => {
+                console.log(auction)
+                return (this.db.list('Auctions', ref => ref.orderByChild('selectCategory').equalTo('tablets')).valueChanges())
+                    .map(data => {
+                        console.log(".map in getAuction eppics  ", data)
+
+                        return {
+                            type: GET_AUCTION_SUCESS,
+                            payload: data
+                        }
+                    })
+                    .catch(err => {
+                        console.log(".catch in createNewAuction eppics", err)
+                        return Observable.of({
+                            type: GET_AUCTION_FAIL,
+                            payload: err
+                        })
+                    })
+            });
+    }
+
     createNewAuction = (action$) => {
         return action$.ofType(CREATE_AUCTION)
-            .mergeMap((auction ) => {
+            .mergeMap((auction) => {
                 console.log(auction)
                 return Observable.fromPromise(this.createAuctionRef.push(auction.payload))
                     .map(data => {
                         console.log(".map in createNewAuction eppics  ", data)
-                        
+
                         return {
                             type: CREATE_AUCTION_SUCESS,
                             payload: auction.payload

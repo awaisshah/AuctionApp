@@ -4,7 +4,7 @@ import { NgRedux, select } from "@angular-redux/store";
 import { AppState } from '../../combineReducer';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { CREATE_AUCTION, CREATE_AUCTION_SUCESS, CREATE_AUCTION_FAIL } from './../../todo.actions';
-import { logging } from 'selenium-webdriver';
+
 
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';

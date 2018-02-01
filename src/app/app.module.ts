@@ -31,13 +31,15 @@ import { NgbModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { CreateUserEpics } from './epics/createuser.epics';
 import { AuctionFormComponent } from './components/auction-form/auction-form.component';
+import { AuctionListComponent } from './components/auction-list/auction-list.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    AuctionFormComponent
+    AuctionFormComponent,
+    AuctionListComponent
 
   ],
   imports: [
@@ -61,7 +63,9 @@ export class AppModule {
     const middleware = [
       createEpicMiddleware(this.epics.createNewUser),
       createEpicMiddleware(this.epics.loginUser),
-      createEpicMiddleware(this.epics.createNewAuction)
+      createEpicMiddleware(this.epics.createNewAuction),
+      createEpicMiddleware(this.epics.getAuction)
+      
 
     ];
 
